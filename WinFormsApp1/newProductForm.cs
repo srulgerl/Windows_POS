@@ -1,4 +1,5 @@
-﻿using System;
+﻿using posLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,11 +15,51 @@ namespace WinFormsApp1
 {
     public partial class newProductForm : Form
     {
-        private ProductMenu productMenuForm;
-        public newProductForm(ProductMenu productMenuForm)
+        private List<Category> categoryList;
+
+
+        public newProductForm()
         {
             InitializeComponent();
-            this.productMenuForm = productMenuForm;
+            LoadCategories();
+        }
+
+        private void LoadCategories()
+        {
+            categoryList = new List<Category>();
+            string connStr = "Data Source=pos.db;Version=3;";
+            try
+            {
+                using (var conn = new SQLiteConnection(connStr))
+                {
+                    conn.Open();
+                    string sql = "SELECT id, name FROM categories";
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(0);
+                                string name = reader.GetString(1);
+                                categoryList.Add(new Category(id, name));
+                            }
+                        }
+                       
+                    }
+                }
+                cmbBoxCategory.DataSource = categoryList;
+                cmbBoxCategory.DisplayMember = "categoryName";
+                cmbBoxCategory.ValueMember = "categoryId";   
+                if (categoryList.Count > 0)
+                    cmbBoxCategory.SelectedIndex = 0;
+                else
+                    cmbBoxCategory.Enabled = false;
+            }
+            catch(SQLiteException ex)
+            {
+                MessageBox.Show($"Өгөгдлийн сангийн алдаа: {ex.Message}");
+            }
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -43,10 +84,10 @@ namespace WinFormsApp1
             }
            
             // Save to database
-            string connStr = "Data Source=pos.db;Version=3;";
             try
             {
-                using (var conn = new SQLiteConnection(connStr))
+                string str = "Data Source=pos.db;Version=3;";
+                using (var conn = new SQLiteConnection(str))
                 {
                     conn.Open();
                     string sql = @"
@@ -59,14 +100,14 @@ namespace WinFormsApp1
                         cmd.Parameters.AddWithValue("@productPrice", priceTxtLbl.Text);
                         cmd.Parameters.AddWithValue("@quantity", qtyTxtLbl.Text);
                         cmd.Parameters.AddWithValue("@discount", discTxtLbl.Text);
-                        cmd.Parameters.AddWithValue("@category", ctgIdTxtLbl.Text);
+                        cmd.Parameters.AddWithValue("@category", cmbBoxCategory.SelectedValue);
                         cmd.ExecuteNonQuery();
                     }
                 }
 
                 MessageBox.Show("Бүтээгдэхүүн амжилттай нэмэгдлээ!");
+                this.DialogResult = DialogResult.OK;
                 this.Close();
-                productMenuForm.LoadProducts(); 
             }
             catch (SQLiteException ex)
             {
@@ -77,7 +118,7 @@ namespace WinFormsApp1
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            
+            this.DialogResult= DialogResult.Cancel;
             this.Close();
         }
     }

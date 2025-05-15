@@ -1,4 +1,5 @@
-﻿using System;
+﻿using posLibrary;
+using System;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
@@ -8,10 +9,12 @@ namespace WinFormsApp1
 {
     public partial class ProductMenu : UserControl
     {
-
-        public ProductMenu()
+        private User currentUser;
+        public ProductMenu(User user)
         {
             InitializeComponent();
+            currentUser = user;
+            insertBtn.Visible = currentUser.hasPermission("addProduct"); 
             this.Load += Product_Load;
         }
 
@@ -32,14 +35,23 @@ namespace WinFormsApp1
                 adapter.Fill(dt);
                 dgvProducts.DataSource = dt;
 
-                dgvProducts.ReadOnly = false;
-                dgvProducts.AllowUserToAddRows = false;
-                dgvProducts.AllowUserToDeleteRows = false;
+                if (currentUser.hasPermission("editProduct"))
+                {
+                    dgvProducts.ReadOnly = false;
+                    dgvProducts.AllowUserToAddRows = false;
+                }
+                else
+                {
+                    dgvProducts.ReadOnly = true;
+                    dgvProducts.AllowUserToAddRows = false;
+                }
             }
         }
 
         private void dgvProducts_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (!currentUser.hasPermission("editProduct")) return;
+
             var row = dgvProducts.Rows[e.RowIndex];
             var id = Convert.ToInt32(row.Cells["id"].Value);
             string colName = dgvProducts.Columns[e.ColumnIndex].Name;
@@ -65,12 +77,9 @@ namespace WinFormsApp1
 
         private void insertBtn_Click(object sender, EventArgs e)
         {
-            var newProductForm = new newProductForm(this);
-            newProductForm.ShowDialog();
-            newProductForm.FormClosing += (s, args) =>
-            {
-                LoadProducts();
-            };
+            var newProductForm = new newProductForm();
+            newProductForm.FormClosed += (s, args) => LoadProducts();
+            newProductForm.ShowDialog();  
         }
     }
 }

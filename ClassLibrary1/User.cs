@@ -11,6 +11,8 @@ namespace posLibrary
         public int userId { get; set; }
         public string userName { get; set; }
 
+        public string role { get; set; }
+
         public User(int id)
         {
             userId = id;
@@ -25,6 +27,7 @@ namespace posLibrary
         {
         
             userName = name;
+            role = "Manager";
         }
 
         public override bool hasPermission(string action)
@@ -39,14 +42,11 @@ namespace posLibrary
         {
         
             userName = name;
+            role = "Cashier";
         }
         public override bool hasPermission(string action)
         {
-            if (action == "viewProducts" || action == "create_transaction")
-            {
-                return true;
-            }
-            return false;
+            return action == "viewProducts";
         }
     }
 }

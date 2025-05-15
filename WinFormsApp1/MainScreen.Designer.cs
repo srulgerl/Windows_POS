@@ -33,11 +33,12 @@ namespace WinFormsApp1
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             UserNameLbl = new Label();
             menuStrip1 = new MenuStrip();
+            startToolStripMenuItem = new ToolStripMenuItem();
             productsToolStripMenuItem = new ToolStripMenuItem();
             categoryToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             mainContentPanel = new Panel();
-            pictureBox1 = new PictureBox();
+            profilePictureBox = new PictureBox();
             label2 = new Label();
             button1 = new Button();
             panel3 = new Panel();
@@ -55,10 +56,9 @@ namespace WinFormsApp1
             searchTxtBox = new TextBox();
             label1 = new Label();
             transactionPanel = new FlowLayoutPanel();
-            startToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             mainContentPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)profilePictureBox).BeginInit();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -66,7 +66,7 @@ namespace WinFormsApp1
             // UserNameLbl
             // 
             UserNameLbl.AutoSize = true;
-            UserNameLbl.Location = new Point(1886, 89);
+            UserNameLbl.Location = new Point(1870, 57);
             UserNameLbl.Name = "UserNameLbl";
             UserNameLbl.Size = new Size(108, 32);
             UserNameLbl.TabIndex = 19;
@@ -79,34 +79,42 @@ namespace WinFormsApp1
             menuStrip1.Items.AddRange(new ToolStripItem[] { startToolStripMenuItem, productsToolStripMenuItem, categoryToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(2162, 42);
+            menuStrip1.Size = new Size(2162, 40);
             menuStrip1.TabIndex = 20;
             menuStrip1.Text = "menuStrip1";
             menuStrip1.ItemClicked += menuStrip1_ItemClicked;
             // 
+            // startToolStripMenuItem
+            // 
+            startToolStripMenuItem.Name = "startToolStripMenuItem";
+            startToolStripMenuItem.Size = new Size(97, 36);
+            startToolStripMenuItem.Text = "Эхлэл";
+            startToolStripMenuItem.Click += startToolStripMenuItem_Click;
+            // 
             // productsToolStripMenuItem
             // 
             productsToolStripMenuItem.Name = "productsToolStripMenuItem";
-            productsToolStripMenuItem.Size = new Size(98, 38);
+            productsToolStripMenuItem.Size = new Size(98, 36);
             productsToolStripMenuItem.Text = "Бараа";
             productsToolStripMenuItem.Click += productsToolStripMenuItem_Click;
             // 
             // categoryToolStripMenuItem
             // 
             categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
-            categoryToolStripMenuItem.Size = new Size(223, 38);
+            categoryToolStripMenuItem.Size = new Size(223, 36);
             categoryToolStripMenuItem.Text = "Барааны ангилал";
+            categoryToolStripMenuItem.Click += categoryToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new Size(130, 38);
+            helpToolStripMenuItem.Size = new Size(130, 36);
             helpToolStripMenuItem.Text = "Тусламж";
             // 
             // mainContentPanel
             // 
             mainContentPanel.Controls.Add(UserNameLbl);
-            mainContentPanel.Controls.Add(pictureBox1);
+            mainContentPanel.Controls.Add(profilePictureBox);
             mainContentPanel.Controls.Add(label2);
             mainContentPanel.Controls.Add(button1);
             mainContentPanel.Controls.Add(panel3);
@@ -122,20 +130,21 @@ namespace WinFormsApp1
             mainContentPanel.Size = new Size(2162, 1228);
             mainContentPanel.TabIndex = 23;
             // 
-            // pictureBox1
+            // profilePictureBox
             // 
-            pictureBox1.Image = Properties.Resources._1055000_profle_person_profile_user_icon__2_;
-            pictureBox1.Location = new Point(2024, 63);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(79, 84);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 33;
-            pictureBox1.TabStop = false;
+            profilePictureBox.Image = Properties.Resources._1055000_profle_person_profile_user_icon__2_;
+            profilePictureBox.Location = new Point(2008, 31);
+            profilePictureBox.Name = "profilePictureBox";
+            profilePictureBox.Size = new Size(79, 84);
+            profilePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            profilePictureBox.TabIndex = 33;
+            profilePictureBox.TabStop = false;
+            profilePictureBox.Click += profilePictureBox_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(97, 108);
+            label2.Location = new Point(81, 76);
             label2.Name = "label2";
             label2.Size = new Size(0, 32);
             label2.TabIndex = 32;
@@ -144,7 +153,7 @@ namespace WinFormsApp1
             // 
             button1.BackgroundImage = Properties.Resources.search_icon;
             button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.Location = new Point(1914, 157);
+            button1.Location = new Point(1898, 125);
             button1.Name = "button1";
             button1.Size = new Size(42, 43);
             button1.TabIndex = 31;
@@ -161,7 +170,7 @@ namespace WinFormsApp1
             panel3.Controls.Add(label10);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label12);
-            panel3.Location = new Point(59, 157);
+            panel3.Location = new Point(43, 125);
             panel3.Name = "panel3";
             panel3.Size = new Size(843, 80);
             panel3.TabIndex = 30;
@@ -224,7 +233,7 @@ namespace WinFormsApp1
             // payBtn
             // 
             payBtn.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            payBtn.Location = new Point(59, 1114);
+            payBtn.Location = new Point(43, 1082);
             payBtn.Name = "payBtn";
             payBtn.Size = new Size(843, 98);
             payBtn.TabIndex = 27;
@@ -236,7 +245,7 @@ namespace WinFormsApp1
             // 
             panel2.Controls.Add(TotalPrice);
             panel2.Controls.Add(label8);
-            panel2.Location = new Point(59, 1011);
+            panel2.Location = new Point(43, 979);
             panel2.Name = "panel2";
             panel2.Size = new Size(843, 97);
             panel2.TabIndex = 28;
@@ -264,7 +273,7 @@ namespace WinFormsApp1
             // categoryflowPanel
             // 
             categoryflowPanel.AutoScroll = true;
-            categoryflowPanel.Location = new Point(933, 735);
+            categoryflowPanel.Location = new Point(917, 703);
             categoryflowPanel.Name = "categoryflowPanel";
             categoryflowPanel.Size = new Size(1170, 477);
             categoryflowPanel.TabIndex = 26;
@@ -272,7 +281,7 @@ namespace WinFormsApp1
             // productFlowPanel
             // 
             productFlowPanel.AutoScroll = true;
-            productFlowPanel.Location = new Point(933, 218);
+            productFlowPanel.Location = new Point(917, 186);
             productFlowPanel.Name = "productFlowPanel";
             productFlowPanel.Size = new Size(1170, 518);
             productFlowPanel.TabIndex = 25;
@@ -280,7 +289,7 @@ namespace WinFormsApp1
             // searchTxtBox
             // 
             searchTxtBox.Font = new Font("Segoe UI", 10.125F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            searchTxtBox.Location = new Point(1140, 157);
+            searchTxtBox.Location = new Point(1124, 125);
             searchTxtBox.Name = "searchTxtBox";
             searchTxtBox.Size = new Size(816, 43);
             searchTxtBox.TabIndex = 23;
@@ -289,7 +298,7 @@ namespace WinFormsApp1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(84, 58);
+            label1.Location = new Point(68, 26);
             label1.Name = "label1";
             label1.Size = new Size(418, 50);
             label1.TabIndex = 24;
@@ -300,19 +309,12 @@ namespace WinFormsApp1
             transactionPanel.AutoScroll = true;
             transactionPanel.AutoSize = true;
             transactionPanel.FlowDirection = FlowDirection.TopDown;
-            transactionPanel.Location = new Point(59, 243);
+            transactionPanel.Location = new Point(43, 211);
             transactionPanel.Margin = new Padding(0);
             transactionPanel.Name = "transactionPanel";
             transactionPanel.Size = new Size(843, 770);
             transactionPanel.TabIndex = 29;
             transactionPanel.WrapContents = false;
-            // 
-            // startToolStripMenuItem
-            // 
-            startToolStripMenuItem.Name = "startToolStripMenuItem";
-            startToolStripMenuItem.Size = new Size(97, 38);
-            startToolStripMenuItem.Text = "Эхлэл";
-            startToolStripMenuItem.Click += startToolStripMenuItem_Click;
             // 
             // MainScreen
             // 
@@ -330,7 +332,7 @@ namespace WinFormsApp1
             menuStrip1.PerformLayout();
             mainContentPanel.ResumeLayout(false);
             mainContentPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)profilePictureBox).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel2.ResumeLayout(false);
@@ -363,7 +365,7 @@ namespace WinFormsApp1
         private Label label1;
         private FlowLayoutPanel transactionPanel;
         private Button button1;
-        private PictureBox pictureBox1;
+        private PictureBox profilePictureBox;
         private Label label2;
         private ToolStripMenuItem startToolStripMenuItem;
     }

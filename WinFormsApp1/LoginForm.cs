@@ -10,10 +10,10 @@ using posLibrary;
 namespace WinFormsApp1
 {
 
-    public partial class Form1 : Form
+    public partial class LoginForm : Form
     {
         DataBaseConnection DataBaseConnection = new DataBaseConnection();
-        public Form1()
+        public LoginForm()
         {
             InitializeComponent();
             DataBaseConnection.CreateDatabase();
@@ -67,7 +67,5 @@ namespace WinFormsApp1
                 }
             }
         }
-
-   
     }
 }

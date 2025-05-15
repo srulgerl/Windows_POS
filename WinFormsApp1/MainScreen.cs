@@ -16,6 +16,8 @@ namespace WinFormsApp1
         public List<Category> categoryList = new List<Category>();
         public Cart cart = new Cart();
         User currentUser;
+        private ContextMenuStrip profileMenu;
+
 
         public MainScreen(User user)
         {
@@ -23,7 +25,28 @@ namespace WinFormsApp1
             currentUser = user;
             LoadData();
             SetUpMenusByRole();
+            SetUpMenusByRole();
+            InitializeProfileMenu();
 
+        }
+        private void InitializeProfileMenu()
+        {
+            profileMenu = new ContextMenuStrip();
+            var logoutItem = new ToolStripMenuItem("Гарах");
+            logoutItem.Click += LogoutItem_Click;
+            profileMenu.Items.Add(logoutItem);
+        }
+
+        private void profilePictureBox_Click(object sender, EventArgs e)
+        {
+            profileMenu.Show(profilePictureBox, new Point(0, profilePictureBox.Height));
+        }
+
+        private void LogoutItem_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
         private void LoadData()
         {
@@ -84,16 +107,8 @@ namespace WinFormsApp1
         public void SetUpMenusByRole()
         {
             helpToolStripMenuItem.Visible = true;
-            productsToolStripMenuItem.Visible = true;
-
-            if (currentUser.userName == "Manager")
-            {
-                categoryToolStripMenuItem.Visible = true;
-            }
-            else
-            {
-                categoryToolStripMenuItem.Visible = false;
-            }
+            productsToolStripMenuItem.Visible = currentUser.hasPermission("viewProducts");
+            categoryToolStripMenuItem.Visible = currentUser.hasPermission("addProduct");
         }
 
         private void MainScreen_Load(object sender, EventArgs e)
@@ -210,12 +225,12 @@ namespace WinFormsApp1
 
             Label nameLabel = new Label();
             nameLabel.Text = product.ProductName;
-            nameLabel.Location = new Point(10, 10);
+            nameLabel.Location = new Point(productPanel.Width - nameLabel.PreferredWidth - 10, productPanel.Height - 70);
             nameLabel.AutoSize = true;
 
             Label priceLabel = new Label();
             priceLabel.Text = $"${product.ProductPrice}";
-            priceLabel.Location = new Point(10, 35);
+            priceLabel.Location = new Point(productPanel.Width - priceLabel.PreferredWidth - 10, productPanel.Height - 40);
             priceLabel.AutoSize = true;
 
             productPanel.Controls.Add(nameLabel);
@@ -290,8 +305,6 @@ namespace WinFormsApp1
             panel.Region = new Region(path);
         }
 
-
-
         private void SearchBtn_Click(object sender, EventArgs e)
         {
             string input = searchTxtBox.Text;
@@ -338,38 +351,87 @@ namespace WinFormsApp1
 
         }
 
+        //private void productsToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    mainContentPanel.Controls.Clear();
+
+        //    var productMenu = new ProductMenu();
+        //    productMenu.Dock = DockStyle.Fill;
+        //    mainContentPanel.Controls.Add(productMenu);
+        //}
+
+
+
         private void productsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainContentPanel.Controls.Clear();
 
-            var productMenu = new ProductMenu();
+
+            foreach (Control control in mainContentPanel.Controls)
+            {
+                control.Visible = false;
+            }
+
+            // Add ProductMenu
+            var productMenu = new ProductMenu(currentUser);
             productMenu.Dock = DockStyle.Fill;
+            productMenu.Tag = "Menu";
             mainContentPanel.Controls.Add(productMenu);
+        }
+
+        private void categoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in mainContentPanel.Controls)
+            {
+                control.Visible = false;
+            }
+
+            var categoryMenu = new CategoryMenu(currentUser);
+            categoryMenu.Dock = DockStyle.Fill;
+            categoryMenu.Tag = "Menu";
+            mainContentPanel.Controls.Add(categoryMenu);
+
         }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainContentPanel.Controls.Clear();
+            mainsScrenRefresh();
+        }
 
-            LoadData();
+        private void mainsScrenRefresh()
+        {
+            // Remove ProductMenu if it exists
+            var menus = mainContentPanel.Controls.OfType<Control>()
+            .Where(c => c.Tag != null && c.Tag.ToString() == "Menu")
+            .ToList();
+            foreach (var menu in menus)
+            {
+                mainContentPanel.Controls.Remove(menu);
+                menu.Dispose();
+            }
+
+            // Restore visibility of original controls
+            foreach (Control control in mainContentPanel.Controls)
+            {
+                control.Visible = true;
+            }
+
+            // Clear panels
+            productFlowPanel.Controls.Clear();
+            transactionPanel.Controls.Clear();
+            categoryflowPanel.Controls.Clear();
+
+            // Reset cart
+            cart = new Cart();
+
+            // Refresh UI
+            refreshTotalPrice();
             ShowProducts();
             ShowCategories();
-            refreshTotalPrice();
+
+            // Update labels
+            UserNameLbl.Text = currentUser.userName;
+            label2.Text = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}";
         }
-        public void Reload()
-        {
-            cart = new Cart(); 
-            productList.Clear();
-            categoryList.Clear();
-
-            transactionPanel.Controls.Clear();
-            productFlowPanel.Controls.Clear();
-            categoryflowPanel.Controls.Clear();
-            mainContentPanel.Controls.Clear();
-
-            
-        }
-
     }
 }
    

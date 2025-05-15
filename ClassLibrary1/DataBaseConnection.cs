@@ -20,7 +20,7 @@ namespace posLibrary
 
                 SQLiteConnection.CreateFile(dbPath);
 
-                using (var conn = new SQLiteConnection($"Data Source={dbPath}   ;Version=3;"))
+                using (var conn = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
                 {
                     conn.Open();
 

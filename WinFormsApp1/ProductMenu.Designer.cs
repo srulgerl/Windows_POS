@@ -31,7 +31,6 @@
             label1 = new Label();
             dgvProducts = new DataGridView();
             insertBtn = new Button();
-            updateBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             SuspendLayout();
             // 
@@ -67,20 +66,10 @@
             insertBtn.UseVisualStyleBackColor = true;
             insertBtn.Click += insertBtn_Click;
             // 
-            // updateBtn
-            // 
-            updateBtn.Location = new Point(1906, 251);
-            updateBtn.Name = "updateBtn";
-            updateBtn.Size = new Size(220, 100);
-            updateBtn.TabIndex = 26;
-            updateBtn.Text = "Бараа өөрчлөх";
-            updateBtn.UseVisualStyleBackColor = true;
-            // 
             // ProductMenu
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(updateBtn);
             Controls.Add(insertBtn);
             Controls.Add(dgvProducts);
             Controls.Add(label1);
@@ -96,6 +85,5 @@
         private Label label1;
         private DataGridView dgvProducts;
         private Button insertBtn;
-        private Button updateBtn;
     }
 }

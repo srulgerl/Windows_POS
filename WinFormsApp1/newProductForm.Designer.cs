@@ -38,7 +38,7 @@
             priceTxtLbl = new TextBox();
             qtyTxtLbl = new TextBox();
             label5 = new Label();
-            ctgIdTxtLbl = new TextBox();
+            cmbBoxCategory = new ComboBox();
             label6 = new Label();
             discTxtLbl = new TextBox();
             label7 = new Label();
@@ -112,7 +112,7 @@
             flowLayoutPanel1.Controls.Add(label4);
             flowLayoutPanel1.Controls.Add(qtyTxtLbl);
             flowLayoutPanel1.Controls.Add(label5);
-            flowLayoutPanel1.Controls.Add(ctgIdTxtLbl);
+            flowLayoutPanel1.Controls.Add(cmbBoxCategory);
             flowLayoutPanel1.Controls.Add(label6);
             flowLayoutPanel1.Controls.Add(discTxtLbl);
             flowLayoutPanel1.Controls.Add(label7);
@@ -134,7 +134,7 @@
             idTxtLbl.Margin = new Padding(10);
             idTxtLbl.MinimumSize = new Size(50, 70);
             idTxtLbl.Name = "idTxtLbl";
-            idTxtLbl.Size = new Size(344, 70);
+            idTxtLbl.Size = new Size(432, 70);
             idTxtLbl.TabIndex = 10;
             idTxtLbl.TextAlign = HorizontalAlignment.Center;
             // 
@@ -146,7 +146,7 @@
             nameTxtLbl.Margin = new Padding(10);
             nameTxtLbl.MinimumSize = new Size(50, 70);
             nameTxtLbl.Name = "nameTxtLbl";
-            nameTxtLbl.Size = new Size(383, 70);
+            nameTxtLbl.Size = new Size(375, 70);
             nameTxtLbl.TabIndex = 10;
             nameTxtLbl.TextAlign = HorizontalAlignment.Center;
             // 
@@ -158,7 +158,7 @@
             priceTxtLbl.Margin = new Padding(10);
             priceTxtLbl.MinimumSize = new Size(50, 70);
             priceTxtLbl.Name = "priceTxtLbl";
-            priceTxtLbl.Size = new Size(398, 70);
+            priceTxtLbl.Size = new Size(391, 70);
             priceTxtLbl.TabIndex = 11;
             priceTxtLbl.TextAlign = HorizontalAlignment.Center;
             // 
@@ -170,7 +170,7 @@
             qtyTxtLbl.Margin = new Padding(10);
             qtyTxtLbl.MinimumSize = new Size(50, 70);
             qtyTxtLbl.Name = "qtyTxtLbl";
-            qtyTxtLbl.Size = new Size(339, 70);
+            qtyTxtLbl.Size = new Size(335, 70);
             qtyTxtLbl.TabIndex = 12;
             qtyTxtLbl.TextAlign = HorizontalAlignment.Center;
             // 
@@ -179,32 +179,30 @@
             label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label5.Location = new Point(23, 390);
+            label5.Location = new Point(23, 380);
             label5.MinimumSize = new Size(50, 70);
             label5.Name = "label5";
-            label5.Size = new Size(190, 70);
+            label5.Size = new Size(153, 70);
             label5.TabIndex = 13;
-            label5.Text = "Category Id";
+            label5.Text = "Category";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // ctgIdTxtLbl
+            // cmbBoxCategory
             // 
-            ctgIdTxtLbl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            ctgIdTxtLbl.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            ctgIdTxtLbl.Location = new Point(226, 390);
-            ctgIdTxtLbl.Margin = new Padding(10);
-            ctgIdTxtLbl.MinimumSize = new Size(50, 70);
-            ctgIdTxtLbl.Name = "ctgIdTxtLbl";
-            ctgIdTxtLbl.Size = new Size(291, 70);
-            ctgIdTxtLbl.TabIndex = 14;
-            ctgIdTxtLbl.TextAlign = HorizontalAlignment.Center;
+            cmbBoxCategory.Anchor = AnchorStyles.None;
+            cmbBoxCategory.Font = new Font("Segoe UI Semibold", 13.875F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cmbBoxCategory.FormattingEnabled = true;
+            cmbBoxCategory.Location = new Point(182, 386);
+            cmbBoxCategory.Name = "cmbBoxCategory";
+            cmbBoxCategory.Size = new Size(299, 58);
+            cmbBoxCategory.TabIndex = 21;
             // 
             // label6
             // 
             label6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label6.Location = new Point(23, 480);
+            label6.Location = new Point(23, 460);
             label6.MinimumSize = new Size(50, 70);
             label6.Name = "label6";
             label6.Size = new Size(149, 70);
@@ -216,11 +214,11 @@
             // 
             discTxtLbl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             discTxtLbl.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            discTxtLbl.Location = new Point(185, 480);
+            discTxtLbl.Location = new Point(185, 460);
             discTxtLbl.Margin = new Padding(10);
             discTxtLbl.MinimumSize = new Size(50, 70);
             discTxtLbl.Name = "discTxtLbl";
-            discTxtLbl.Size = new Size(339, 70);
+            discTxtLbl.Size = new Size(333, 70);
             discTxtLbl.TabIndex = 16;
             discTxtLbl.TextAlign = HorizontalAlignment.Center;
             // 
@@ -229,7 +227,7 @@
             label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label7.Location = new Point(23, 570);
+            label7.Location = new Point(23, 550);
             label7.MinimumSize = new Size(50, 70);
             label7.Name = "label7";
             label7.Size = new Size(143, 70);
@@ -241,7 +239,7 @@
             // 
             barcodeTxtLbl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             barcodeTxtLbl.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            barcodeTxtLbl.Location = new Point(179, 570);
+            barcodeTxtLbl.Location = new Point(179, 550);
             barcodeTxtLbl.Margin = new Padding(10);
             barcodeTxtLbl.MinimumSize = new Size(50, 70);
             barcodeTxtLbl.Name = "barcodeTxtLbl";
@@ -252,7 +250,7 @@
             // saveBtn
             // 
             saveBtn.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            saveBtn.Location = new Point(50, 680);
+            saveBtn.Location = new Point(50, 660);
             saveBtn.Margin = new Padding(30);
             saveBtn.MinimumSize = new Size(0, 60);
             saveBtn.Name = "saveBtn";
@@ -265,7 +263,7 @@
             // cancelBtn
             // 
             cancelBtn.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            cancelBtn.Location = new Point(309, 680);
+            cancelBtn.Location = new Point(309, 660);
             cancelBtn.Margin = new Padding(30);
             cancelBtn.MinimumSize = new Size(0, 60);
             cancelBtn.Name = "cancelBtn";
@@ -298,14 +296,14 @@
         private TextBox idTxtLbl;
         private TextBox nameTxtLbl;
         private TextBox priceTxtLbl;
-        private TextBox qtyTxtLbl;
         private Label label5;
-        private TextBox ctgIdTxtLbl;
         private Label label6;
         private TextBox discTxtLbl;
         private Label label7;
         private TextBox barcodeTxtLbl;
         private Button saveBtn;
         private Button cancelBtn;
+        private TextBox qtyTxtLbl;
+        private ComboBox cmbBoxCategory;
     }
 }
